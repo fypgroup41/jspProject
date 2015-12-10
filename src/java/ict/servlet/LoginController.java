@@ -110,16 +110,17 @@ public class LoginController extends HttpServlet {
                 // redirect the result to the listCustomers.jsp
                 RequestDispatcher rd;
 
-                ArrayList<CategoryBean> category = db.queryCategory();
-                session.setAttribute("category", category);
-                if (bean.getuType().equals("a")) {
-                    rd = getServletContext().getRequestDispatcher("/maintain.jsp");
-                    rd.forward(request, response);
-                } else {
-                    rd = getServletContext().getRequestDispatcher("/welcome.jsp");
-                    rd.forward(request, response);
-                }
-
+                //ArrayList<CategoryBean> category = db.queryCategory();
+                //session.setAttribute("category", category);
+          /*      if (bean.getuType().equals("a")) {
+                 rd = getServletContext().getRequestDispatcher("/maintain.jsp");
+                 rd.forward(request, response);
+                 } else {
+                 rd = getServletContext().getRequestDispatcher("/welcome.jsp");
+                 rd.forward(request, response);
+                 }*/
+                rd = getServletContext().getRequestDispatcher("/welcome.jsp");
+                rd.forward(request, response);
             } else {
                 PrintWriter out = response.getWriter();
                 out.println("Login Fail! Prease try again");

@@ -34,18 +34,6 @@
 
 
 
-
-
-    <%@ taglib uri="/tlds/table-taglib.tld" prefix="tableTag"%>
-
-    <tableTag:table beanName="product">
-    
-    
-    
-    
-    
-    
-    
     
     
     

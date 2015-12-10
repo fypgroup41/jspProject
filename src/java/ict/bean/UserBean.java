@@ -10,24 +10,20 @@ package ict.bean;
  * @author test
  */
 public class UserBean {
+ 
 
-    public UserBean(String uId, String uName, String uPasswd, String uType, String email, int creditAmount, int bounspt, int available, String deliveryAddress, int a_f_t, int transactions, double total_amount) {
-        this.uId = uId;
-        this.uName = uName;
-        this.uPasswd = uPasswd;
-        this.uType = uType;
-        this.email = email;
-        this.creditAmount = creditAmount;
-        this.bounspt = bounspt;
-        this.available = available;
-        this.deliveryAddress = deliveryAddress;
-        this.a_f_t = a_f_t;
-        this.transactions = transactions;
-        this.total_amount = total_amount;
-    }
-
-    public UserBean() {
-    }
+    private String uId;
+    private String uName;
+    private String uPasswd;
+    private String uType;
+    private String email;
+    private int creditAmount;
+    private int bounspt;
+    private int available;
+    private String deliveryAddress;
+    private int a_f_t;
+    private int transactions;
+    private double total_amount;
 
     public String getuId() {
         return uId;
@@ -105,7 +101,7 @@ public class UserBean {
         return a_f_t;
     }
 
-    public void setA_f_t(int     a_f_t) {
+    public void setA_f_t(int a_f_t) {
         this.a_f_t = a_f_t;
     }
 
@@ -125,18 +121,18 @@ public class UserBean {
         this.total_amount = total_amount;
     }
 
-    
-
-    private String uId;
-    private String uName;
-    private String uPasswd;
-    private String uType;
-    private String email;
-    private int creditAmount;
-    private int bounspt;
-    private int available;
-    private String deliveryAddress;
-    private int a_f_t;
-    private int transactions;
-    private double total_amount;
+    public UserBean(String uId, String uName, String uPasswd, String uType, String email, int creditAmount, int bounspt, int available, String deliveryAddress, int a_f_t, int transactions, double total_amount) {
+        this.uId = uId;
+        this.uName = uName;
+        this.uPasswd = uPasswd;
+        this.uType = uType;
+        this.email = email;
+        this.creditAmount = creditAmount;
+        this.bounspt = bounspt;
+        this.available = available;
+        this.deliveryAddress = deliveryAddress;
+        this.a_f_t = a_f_t;
+        this.transactions = transactions;
+        this.total_amount = total_amount;
+    }
 }

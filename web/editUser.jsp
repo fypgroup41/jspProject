@@ -18,7 +18,7 @@
 
         <h3>User Information</h3>
         <form action="updateUser" method="post">
-            <input type="hidden" name="inputType" value="info">
+            <input type="hidden" name="input_type" value="info">
             <input type="hidden" name="uId" value="<%=userInfo.getuId()%>">
 
             <table>
@@ -31,7 +31,7 @@
         </form>
         <h3>Password</h3>
         <form action="updateUser" method="post">
-            <input type="hidden" name="inputType" value="password">
+            <input type="hidden" name="input_type" value="password">
             <input type="hidden" name="uId" value="<%=userInfo.getuId()%>">
             <table>
                 <tr><td>Old Password</td><td><input type="password" name="oldPassword"></td></tr> 
