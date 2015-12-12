@@ -20,8 +20,9 @@
         <form action="updateUser" method="post">
             <input type="hidden" name="input_type" value="info">
             <input type="hidden" name="uId" value="<%=userInfo.getuId()%>">
+            <input type="hidden" name="username" value="<%=userInfo.getuName()%>">
 
-            <table>
+            <table>#
                 <tr><td>User Id</td></tr> 
                 <tr><td>User Name</td><td><%=userInfo.getuName()%></td></tr> 
                 <tr><td>Email</td><td><input type="text" name="email" value="<%=userInfo.getEmail()%>"></td></tr> 
@@ -42,12 +43,12 @@
             <input type="submit" value="submit">
         </form>
     </body>
-    
-            
-        
-        
-        
-    
+
+
+
+
+
+
 
     <jsp:include page="/template/footer.jsp"/>
 </html>     

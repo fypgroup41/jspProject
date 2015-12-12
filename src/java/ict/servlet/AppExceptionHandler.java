@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 @WebServlet("/AppExceptionHandler")
-public class AppExceptionHandler extends HttpServlet {
+public class AppExceptionHandler extends HttpServlet   {
     private static final long serialVersionUID = 1L;
  
+    @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         processError(request, response);
     }
  
+      @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         processError(request, response);
@@ -59,7 +61,7 @@ public class AppExceptionHandler extends HttpServlet {
           }
            
           out.write("<br><br>");
-          out.write("<a href=\"index.html\">Home Page</a>");
+          out.write("<a href=\"\">Home Page</a>");
           out.write("</body></html>");
     }
 }

@@ -48,7 +48,6 @@
         </div >
 
         <div id="div-1a">
-
             <p>Login name is admin001 and password is "12345"</p>
             <p>Login name is mem001 and password is "12345"</p>
             <p>Login name is mem002 and password is "12345"</p></div>
