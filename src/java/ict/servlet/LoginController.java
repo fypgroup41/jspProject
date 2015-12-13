@@ -105,7 +105,7 @@ public class LoginController extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 session.setMaxInactiveInterval(9999);
                 UserBean bean = db.queryUserByUID(uid);
-                session.setAttribute("userInfo", bean);
+                    session.setAttribute("userInfo", bean);
 
                 // redirect the result to the listCustomers.jsp
                 RequestDispatcher rd;

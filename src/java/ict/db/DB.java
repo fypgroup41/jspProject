@@ -1575,7 +1575,7 @@ public class DB {
         }
         return gift;
     }
-
+    
     public ArrayList queryOrderByUID2(String uId) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
@@ -1585,12 +1585,12 @@ public class DB {
 
             ResultSet rs = null;
             cnnct = getConnection();
-            String preQueryStatement = "SELECT* FROM UORDER WHERE UID=? LIMIT 10 ORDER BY DESC";
+            String preQueryStatement = "SELECT* FROM UORDER WHERE UID=?  ORDER BY OID DESC LIMIT 10";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, uId);
             rs = pStmnt.executeQuery();
             while (rs.next()) {
-                order = new OrderBean(rs.getString("oid"), rs.getString("uid"), rs.getString("omode"), rs.getString("ostatus"), rs.getString("oDate"), rs.getString("deliveryDate"));
+                order = new OrderBean(rs.getString("oId"), rs.getString("uId"), rs.getString("oMode"), rs.getString("oStatus"), rs.getString("oDate"), rs.getString("deliveryDate"));
                 list.add(order);
             }
             pStmnt.close();
@@ -1605,5 +1605,36 @@ public class DB {
             ex.printStackTrace();
         }
         return list;
+    }
+    
+    
+    public String queryOrderByUID3(String uId) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+     String output=null;
+
+        try {
+
+            ResultSet rs = null;
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT* FROM UORDER WHERE UID=\"mem001\" ORDER BY OID DESC LIMIT 10";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, uId);
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                output+=rs.getString("uid");
+            }
+            pStmnt.close();
+            cnnct.close();
+
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return output;
     }
 }
