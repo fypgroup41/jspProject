@@ -98,19 +98,24 @@
 
 
     <script>
-        function SendSearchRequest(product, gift, keyword) {
+        function SendSearchRequest(product, gift, keyword, price) {
             var productLink = "";
             var giftLink = "";
+            var priceLink = "";
             if (product.checked) {
                 productLink = "&product=" + keyword.value;
             }
             if (gift.checked) {
                 giftLink = "&gift=" + keyword.value;
             }
+            if (price.value >= 0) {
+                priceLink = "&price=" + price.value;
+            }
+
             if (productLink == "" && giftLink == "") {
                 alert("Please choose the search type");
             } else {
-                window.location = "<%=getServletContext().getContextPath() + "/"%>" + "HandleSearch?action=searchByKeywords" + productLink + giftLink;
+                window.location = "<%=getServletContext().getContextPath() + "/"%>" + "HandleSearch?action=searchByKeywords" + productLink + giftLink + priceLink;
             }
         }
     </script>
@@ -121,7 +126,7 @@
             if (userInfo.getuId() != null) {
         %>
         <div align="right">
-            <a href="<%=getServletContext().getContextPath() + "/"%>editUser.jsp" title="bonus points:&nbsp;<%=userInfo.getBounspt() %>" > <img  src="<%=getServletContext().getContextPath() + "/"%>icon/user.png" id="user" width="25" height="25" style="vertical-align:top"><span style="vertical-align:top; "><jsp:getProperty name="userInfo" property="uId" />&#x25BE</span></a></div>    
+            <a href="<%=getServletContext().getContextPath() + "/"%>editUser.jsp" title="bonus points:&nbsp;<%=userInfo.getBounspt()%>" > <img  src="<%=getServletContext().getContextPath() + "/"%>icon/user.png" id="user" width="25" height="25" style="vertical-align:top"><span style="vertical-align:top; "><jsp:getProperty name="userInfo" property="uId" />&#x25BE</span></a></div>    
                 <%                } else {
                         out.println("<div align=\"right\">Please <a href=\"" + getServletContext().getContextPath() + "/index.jsp \">Login</a></div>");
                     }
@@ -134,17 +139,15 @@
             <table id="searchTable" >
                 <tr>
                     <td>Search Keyword :</td><td><input type=\"text\"class="enjoy-css" id="keyword"/></td>
-                    <td><img   src="<%=getServletContext().getContextPath() + "/"%>icon/search.png" id="search" style="cursor:pointer" onclick=" javascript:SendSearchRequest(product, gift, keyword)"></td></tr>
+                    <td><img   src="<%=getServletContext().getContextPath() + "/"%>icon/search.png" id="search" style="cursor:pointer" onclick=" javascript:SendSearchRequest(product, gift, keyword, price)"></td></tr>
                 <tr>
                     <td>$ below
-                        <select name="price">
+                        <select name="price" id="price">
                             <option value="0">/</option>
                             <option value="250">250</option>
                             <option value="100">100</option>
                             <option value="50">50</option>
                         </select>
-
-
                     </td>
                     <td>
                         Product <input type="checkbox" id="product" value="product" ><label for="product"  style="cursor:pointer"></label>       

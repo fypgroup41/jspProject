@@ -29,15 +29,6 @@ public class HandleSearch extends HttpServlet {
 
     private DB db;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUsername");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
@@ -46,6 +37,17 @@ public class HandleSearch extends HttpServlet {
 
     }
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+
+    /*   RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/search/searchResult.jsp");
+            rd.forward(request, response);*/
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -123,10 +125,13 @@ public class HandleSearch extends HttpServlet {
             if (condition != null) {
                 String keywords = request.getParameter("product");
                 String price = request.getParameter("price");
+                if (price == null) {
+                    price = "0";
+                }
                 if (condition.equalsIgnoreCase("")) {
                     products = new ArrayList<ProductBean>();
                 } else {
-                    products = db.queryProductByKeywordPrice(keywords, Double.parseDouble(price));
+                    products = db.queryProductByKeywordPrice(keywords, Integer.parseInt(price));
                 }
 
                 ArrayList<ManufacturerBean> manufacturer = new ArrayList<ManufacturerBean>();
@@ -163,44 +168,5 @@ public class HandleSearch extends HttpServlet {
             rd.forward(request, response);
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

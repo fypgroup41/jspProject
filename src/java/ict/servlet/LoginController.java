@@ -5,20 +5,10 @@
  */
 package ict.servlet;
 
-import ict.bean.CategoryBean;
-import ict.bean.GiftBean;
-import ict.bean.ManufacturerBean;
-import ict.bean.OrderBean;
-import ict.bean.ProductBean;
-import ict.bean.ProductOrderBean;
-import ict.bean.UserBean;
-import ict.bean.UserInfo;
-import ict.db.DB;
 
+import ict.bean.UserBean;
+import ict.db.DB;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
