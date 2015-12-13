@@ -109,7 +109,6 @@ public class LoginController extends HttpServlet {
 
                 // redirect the result to the listCustomers.jsp
                 RequestDispatcher rd;
-
                 //ArrayList<CategoryBean> category = db.queryCategory();
                 //session.setAttribute("category", category);
           /*      if (bean.getuType().equals("a")) {

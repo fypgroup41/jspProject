@@ -18,9 +18,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-
-
-
     <tr><td></td></tr>
     <tr><td></td></tr>
     <tr><td></td></tr>

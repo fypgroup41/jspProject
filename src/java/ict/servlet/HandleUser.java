@@ -74,8 +74,12 @@ public class HandleUser extends HttpServlet {
             db.editUserRecord(user);
             HttpSession session = request.getSession(true);
             session.setAttribute("userInfo", user);
-            response.sendRedirect(request.getContextPath() + ("/editUser.jsp"));
+            session.setAttribute("status", "Updated Your Record!");
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/editUser.jsp");
+            rd.forward(request, response);
         }
+
         if (inputType.equals("password")) {
             String uId = request.getParameter("uId");
             String password = request.getParameter("password");
