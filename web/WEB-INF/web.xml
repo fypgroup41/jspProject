@@ -26,12 +26,27 @@
         <location>/AppExceptionHandler</location>
     </error-page>
     <error-page>
-    <error-code>404</error-code>
-    <location>/AppExceptionHandler</location>
-  </error-page>
+        <error-code>404</error-code>
+        <location>/AppExceptionHandler</location>
+    </error-page>
    
-  <error-page>
-  <exception-type>javax.servlet.ServletException</exception-type>
-  <location>/AppExceptionHandler</location>
-  </error-page>
+    <error-page>
+        <exception-type>javax.servlet.ServletException</exception-type>
+        <location>/AppExceptionHandler</location>
+    </error-page>
+  
+    <servlet>
+        <servlet-name>ChatServlet</servlet-name>
+        <servlet-class>com.jsos.chat.ChatServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/chatconf</param-value>
+        </init-param>
+    </servlet> 
+    <servlet-mapping>
+        <servlet-name>ChatServlet</servlet-name>
+        <url-pattern>/servlet/ChatServlet</url-pattern>
+    </servlet-mapping> 
+    
+  
 </web-app>
