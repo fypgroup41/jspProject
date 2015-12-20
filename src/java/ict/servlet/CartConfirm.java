@@ -111,7 +111,7 @@ public class CartConfirm extends HttpServlet {
                 receive = "Self-Pick-Up";
             }
             try {
-                db.addOrderRecord(nextOrder, user.getuId(), receive, "Process", format1.format(new Date()), ReceiveDate);
+                db.addOrderRecord(nextOrder, user.getuId(), receive, "Process", ReceiveDate);
             } catch (ParseException ex) {
                 Logger.getLogger(CartConfirm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -138,7 +138,7 @@ public class CartConfirm extends HttpServlet {
                     db.addProductOrderRecord(nextOrder, null, giftCart.get(i).getGb().getCatId(), giftCart.get(i).getQty(), giftCart.get(i).getGb().getPt());
                     total += giftCart.get(i).getQty() * giftCart.get(i).getGb().getPt();
                 }
-          
+
             }
 
             RequestDispatcher rd;

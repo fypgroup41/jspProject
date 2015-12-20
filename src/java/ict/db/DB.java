@@ -19,8 +19,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -821,7 +823,7 @@ public class DB {
         return isSuccess;
     }
 
-    public boolean addOrderRecord(String oId, String uId, String oMode, String oStatus, String oDate, String deliveryDate) throws ParseException {
+    public boolean addOrderRecord(String oId, String uId, String oMode, String oStatus, String deliveryDate) throws ParseException {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
@@ -833,41 +835,13 @@ public class DB {
             pStmnt.setString(2, uId);
             pStmnt.setString(3, oMode);
             pStmnt.setString(4, oStatus);
-            /*
-            SimpleDateFormat from = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat to = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat to2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            
-            
-            
-            java.sql.Timestamp timestamp = new java.sql.Timestamp();
-            statement.setTimestamp(1, timstamp);
-
-            Calendar c = new GregorianCalendar();
-            c.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            Date d1 = c.getTime();
-             */
-            String[] od = oDate.split("-");
-            String[] dd = oDate.split("-");
-            int year = Integer.parseInt(od[0]);
-            int month = Integer.parseInt(od[1]);
-            int day = Integer.parseInt(od[2]);
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, month - 1);
-            cal.set(Calendar.DAY_OF_MONTH, day);
-
-            pStmnt.setDate(5, new java.sql.Date(cal.getTimeInMillis()));
-            year = Integer.parseInt(dd[0]);
-            month = Integer.parseInt(dd[1]);
-            day = Integer.parseInt(dd[2]);
-            cal = Calendar.getInstance();
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, month - 1);
-            cal.set(Calendar.DAY_OF_MONTH, day);
-            pStmnt.setDate(6, new java.sql.Date(cal.getTimeInMillis()));
+            Logger _log = Logger.getLogger("A");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            java.util.Date utilDate2 = formatter.parse(deliveryDate);
+            _log.info(new Date().toString());
+            pStmnt.setTimestamp(5, new java.sql.Timestamp(new java.util.Date().getTime()));
+            pStmnt.setTimestamp(6, new java.sql.Timestamp(utilDate2.getTime()));
             int rowCount = pStmnt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;
@@ -1575,7 +1549,7 @@ public class DB {
         }
         return gift;
     }
-    
+
     public ArrayList queryOrderByUID2(String uId) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
@@ -1606,12 +1580,11 @@ public class DB {
         }
         return list;
     }
-    
-    
+
     public String queryOrderByUID3(String uId) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
-     String output=null;
+        String output = null;
 
         try {
 
@@ -1622,7 +1595,7 @@ public class DB {
             pStmnt.setString(1, uId);
             rs = pStmnt.executeQuery();
             while (rs.next()) {
-                output+=rs.getString("uid");
+                output += rs.getString("uid");
             }
             pStmnt.close();
             cnnct.close();
