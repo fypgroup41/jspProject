@@ -16,7 +16,7 @@ bgcolor1=#FFFFFF
 bgcolor2=#FFFF00
 
 # refresh time in seconds (default 30)
-refresh=60
+refresh=2
 
 # inactivity time in seconds (default 600)
 inactivity=300
@@ -28,4 +28,4 @@ privacy=0
 #log=/path_to_your_file
 
 # messages keeped on the screen (default value is 60)
-messages=500
+messages=60

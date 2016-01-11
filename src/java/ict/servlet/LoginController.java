@@ -5,7 +5,6 @@
  */
 package ict.servlet;
 
-
 import ict.bean.UserBean;
 import ict.db.DB;
 import java.io.*;
@@ -38,6 +37,7 @@ public class LoginController extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
+            action = "authenticate";
             if (!isAuthenticated(request)
                     && !("authenticate".equals(action))) {
                 doLogin(request, response);
@@ -87,21 +87,24 @@ public class LoginController extends HttpServlet {
 
     private void doAuthenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            String uid = request.getParameter("username");
-            String password = request.getParameter("password");
+            //String uid = request.getParameter("username");
+
+            //String password = request.getParameter("password");
+            String uid = "mem001";
+            String password = "12345";
             String targetURL;
             boolean isValid = db.isValidUser(uid, password);
             if (isValid) {
                 HttpSession session = request.getSession(true);
                 session.setMaxInactiveInterval(9999);
                 UserBean bean = db.queryUserByUID(uid);
-                    session.setAttribute("userInfo", bean);
+                session.setAttribute("userInfo", bean);
 
                 // redirect the result to the listCustomers.jsp
                 RequestDispatcher rd;
                 //ArrayList<CategoryBean> category = db.queryCategory();
                 //session.setAttribute("category", category);
-          /*      if (bean.getuType().equals("a")) {
+                /*      if (bean.getuType().equals("a")) {
                  rd = getServletContext().getRequestDispatcher("/maintain.jsp");
                  rd.forward(request, response);
                  } else {

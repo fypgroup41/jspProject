@@ -65,25 +65,31 @@
                 out.println("<td>" + ob.get(i).getoId() + "<br></td>");
                 out.println("<td><strong>" + ob.get(i).getoMode() + "</strong></td>");
                 out.println("<td  class=\"status\"><span style=\"width:300\">" + ob.get(i).getoStatus() + "</span></td>");
-                out.println("<td>" + ob.get(i).getoDate() + "<br></td>");
+                out.println("<td>" + ob.get(i).getoDate().substring(0, ob.get(i).getoDate().length() - 2) + "<br></td>");
                 out.println("<td>" + ob.get(i).getDeliveryDate() + "<br></td></tr>");
                 out.println("<tr>");
                 String productOrder = "";
+                  String strVar="";
+                        strVar += "onmouseover=\"this.width='100'; this.height='100'\" onmouseout=\"this.width='20'; this.height='20'\"";
                 for (int j = 0; j < bob.size(); j++) {
                     if (j == 0) {
-                        productOrder += "Item " + (j + 1) + "<br>";
-                        productOrder += bob.get(j).getoId() + " ";
+                        productOrder += (j + 1) + ". ";
+                      
+
+                        productOrder += "<img src=\"img/" + db.queryProductByID(bob.get(j).getpId()).getProductPhoto() + "\" height=\"20\" width=\"20\"" + strVar +" >";
                         productOrder += bob.get(j).getpId() + " " + db.queryProductByID(bob.get(j).getpId()).getpName();
                         productOrder += bob.get(j).getgId() + " ";
                         productOrder += bob.get(j).getQty() + " ";
-                        productOrder += bob.get(j).getPrice() + "<br><br>";
+                        productOrder += bob.get(j).getPrice() + "<br>";
                     } else {
-                        productOrder += "Item " + (j + 1) + "<br>";
-                        productOrder += bob.get(j).getoId() + " ";
+                        productOrder += (j + 1) + ". ";
+                        
+                        
+                        productOrder += "<img src=\"img/" + db.queryProductByID(bob.get(j).getpId()).getProductPhoto() + "\" height=\"20\" width=\"20\"" + strVar +" >";
                         productOrder += bob.get(j).getpId() + " " + db.queryProductByID(bob.get(j).getpId()).getpName();
                         productOrder += bob.get(j).getgId() + " ";
                         productOrder += bob.get(j).getQty() + " ";
-                        productOrder += bob.get(j).getPrice() + "<br><br>";
+                        productOrder += bob.get(j).getPrice() + "<br>";
 
                     }
                 }

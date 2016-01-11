@@ -16,6 +16,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="<%=getServletContext().getContextPath() + "/"%>javascript/sorttable.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <style>
 
 
@@ -63,7 +66,12 @@
 
         <%@ taglib uri="/tlds/table-taglib.tld" prefix="tableTag"%>
         <jsp:include page="/template/header.jsp"/>  
-
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchByCatid&catid=cat003&item=gift#" >Menu 1</a></li>
+    <li><a href="#" data-toggle="pill">Menu 2</a></li>
+    <li><a href="<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchByCatid&catid=cat002&item=gift#  " data-toggle="pill">Menu 3</a></li>
+  </ul>
         <%
             DB db = new DB();
             ArrayList<CategoryBean> category = (ArrayList<CategoryBean>) db.queryCategory();
@@ -102,7 +110,7 @@
                     out.println("</tr>");
                 }
                 out.println("</table>");
-                
+
             }
 
         %>
@@ -144,7 +152,7 @@
                     out.println("</tr>");
                 }
                 out.println("</table>");
-                
+
             }
         %>
         <jsp:include page="/template/footer.jsp"/>

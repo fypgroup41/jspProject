@@ -55,10 +55,10 @@
                 <input type="hidden" name="action" value="authenticate"/>
                 <table border="0">
                     <tr><td><p align="right"><b>User ID</b></td>
-                        <td><p><input type="text" name="username" maxLength="10"  size="15"></td>
+                        <td><p><input type="text" name="username" maxLength="10"  size="15" value="mem002"></td>
                     </tr>
                     <tr><td> <p align="right"><b>Password:</b></td>
-                        <td><p><input type="password" name="password" maxLength="10" size="15"></td>
+                        <td><p><input type="password" name="password" maxLength="10" size="15" value="12345"></td>
                     </tr>
                     <tr><td><p align="center"></p></td><td><p align="center"><input type="button" value="Register" onclick="window.location = 'register.jsp'"><input type="submit" value="Login"></p></td>
                     </tr>
