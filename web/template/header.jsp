@@ -10,9 +10,32 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script>
+            $(document).ready(function () {
+
+                $("#product0").click(function () {
+                    alert("A");
+                });
+                $('#hover-cap-4col .thumbnail').hover(
+                        function () {
+                            $(this).find('.caption').slideDown(250); //.fadeIn(250)
+                        },
+                        function () {
+                            $(this).find('.caption').slideUp(250); //.fadeOut(205)
+                        }
+                );
+                $('#hover-cap-4col .thumbnail').click(function () {
+                   $('#myModal').find(".modal-body").append("<h1>A</h1>");
+                    $("#myModal").modal();
+                });
+
+            });
+        </script>
         <title>JSP Page</title>
     </head>
 
@@ -163,22 +186,22 @@
 
         <div id="navigationBar">
             <ul class="ulTable">
-                <li class="liTable"><button type="button" onclick="window.location.href='<%=getServletContext().getContextPath() + "/"%>/ShowAll'" class="btn">Home</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/ShowAll'" class="btn">Home</button></li>
                     <%
                         UserBean user = (UserBean) session.getAttribute("userInfo");
                         if (user.getuType().equals("a")) {
                             out.println("<li class=\"liTable\"><a href=\"maintain.jsp\">Maintain</a></li>");
                         }
                     %>
-                <li class="liTable"><button type="button" onclick="window.location.href='<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchAll&item=product'" class="btn">Product</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href='<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchAll&item=gift'" class="btn">Gift</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href='<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchByPrice&price=500&order=asc&item=product'" class="btn">searchByPrice</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href='http://cdnjs.com/libraries/twitter-bootstrap'" class="btn">Basic Button</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchAll&item=product'" class="btn">Product</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchAll&item=gift'" class="btn">Gift</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchByPrice&price=500&order=asc&item=product'" class="btn">searchByPrice</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = 'http://cdnjs.com/libraries/twitter-bootstrap'" class="btn">Basic Button</button></li>
                     <%
                         if (userInfo.getuId() != null) {
                     %>
-                <li class="liTable"><button type="button" onclick="window.location.href='<%=getServletContext().getContextPath() + "/"%>showOrder.jsp'" class="btn">Show Order</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href='<%=getServletContext().getContextPath() + "/"%>main?action=logout'" class="btn">Logout</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>showOrder.jsp'" class="btn">Show Order</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>main?action=logout'" class="btn">Logout</button></li>
                     <%}%>
             </ul>
         </div>

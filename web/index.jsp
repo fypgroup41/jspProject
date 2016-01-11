@@ -8,10 +8,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+   
+
     </head>
     <body>
-        <jsp:forward page="/main"/>
+   <jsp:forward page="/main"/>
+
+
+
+
     </body>
 </html>

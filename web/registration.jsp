@@ -99,8 +99,6 @@
                 <tr><td>Delivery address:</td><td><textarea name="d_address" rows="3" cols="40" id="d_address"></textarea></td></tr>
                 <tr><td></td></tr>
             </table>
-
-      
             <table>
                 <tr>
                     <td>Card Type</td>
@@ -123,11 +121,8 @@
                     <td>Card Security Code</td>
                     <td><input type="text" name="password" placeholder="Enter Four-Digit Number"</td>
                 </tr>
-                
                 <tr>
                     <td>Expiry Date</td>
-
-
                     <td><input type="date" name="expiryDate"></td>
                 </tr>
             </table>

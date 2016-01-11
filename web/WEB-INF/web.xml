@@ -48,5 +48,22 @@
         <url-pattern>/servlet/ChatServlet</url-pattern>
     </servlet-mapping> 
     
-  
+    <servlet>
+        <servlet-name>ChatEngine</servlet-name>
+        <servlet-class>com.jsos.chat.ChatEngineServlet</servlet-class>
+    </servlet> 
+    
+    <servlet-mapping>
+        <servlet-name>ChatEngine</servlet-name>
+        <url-pattern>/servlet/ChatEngine/*</url-pattern>
+    </servlet-mapping> 
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>com.jsos.edit.EditServlet</servlet-class>
+    </servlet> 
+    
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/servlet/edit</url-pattern>
+    </servlet-mapping> 
 </web-app>
