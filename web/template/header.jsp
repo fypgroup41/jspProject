@@ -30,7 +30,7 @@
                         }
                 );
                 $('#hover-cap-4col .thumbnail').click(function () {
-                   $('#myModal').find(".modal-body").append("<h1>A</h1>");
+                   $('#myModal').find(".modal-body").html("<h1>ABC</h1>");
                     $("#myModal").modal();
                 });
 
@@ -193,14 +193,14 @@
                             out.println("<li class=\"liTable\"><a href=\"maintain.jsp\">Maintain</a></li>");
                         }
                     %>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchAll&item=product'" class="btn">Product</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchAll&item=gift'" class="btn">Gift</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchByPrice&price=500&order=asc&item=product'" class="btn">searchByPrice</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchAll&item=product'" class="btn">Product</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchAll&item=gift'" class="btn">Gift</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchByPrice&price=500&order=asc&item=product'" class="btn">searchByPrice</button></li>
                 <li class="liTable"><button type="button" onclick="window.location.href = 'http://cdnjs.com/libraries/twitter-bootstrap'" class="btn">Basic Button</button></li>
                     <%
                         if (userInfo.getuId() != null) {
                     %>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>showOrder.jsp'" class="btn">Show Order</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>showUserOrder.jsp'" class="btn">Show Order</button></li>
                 <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>main?action=logout'" class="btn">Logout</button></li>
                     <%}%>
             </ul>

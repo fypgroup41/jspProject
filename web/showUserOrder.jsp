@@ -16,7 +16,7 @@
     .status {
         display: inline;
         padding: 0.2em 0.6em 0.3em;
-        font-size: 75%;
+        font-size: smaller;
         font-weight: bold;
         line-height: 1;
         color: #FFF;
@@ -38,7 +38,7 @@
 </style>
 <html>
 
-    <th >Status</th>
+    
         <jsp:useBean id="userInfo" class="ict.bean.UserBean" scope="session"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>JSP Page</title>
@@ -57,43 +57,51 @@
             DB db = new DB(dbUrl, dbUser, dbPassword);
             ArrayList<OrderBean> ob = db.queryOrderByUID2(userInfo.getuId());
 
-            out.println("<table border=\"1\"><tr><th>Order No.</th><th>Delivery Arragement</th><th>Status</th><th>Date</th><th>Delivery Date</th></tr>");
+            out.println("<table  border=\"1\" class=\"table\"><tr><th>Order No.</th><th>Delivery Arragement</th><th>Status</th><th>Date</th><th>Delivery Date</th></tr>");
             for (int i = 0; i < ob.size(); i++) {
                 ArrayList<ProductOrderBean> bob = db.queryProductOrderByID(ob.get(i).getoId());
 
                 out.println("<tr>");
                 out.println("<td>" + ob.get(i).getoId() + "<br></td>");
                 out.println("<td><strong>" + ob.get(i).getoMode() + "</strong></td>");
-                out.println("<td  class=\"status\"><span style=\"width:300\">" + ob.get(i).getoStatus() + "</span></td>");
+                out.println("<td><span  class=\"status\" style=\"width:300\">" + ob.get(i).getoStatus() + "</span></td>");
                 out.println("<td>" + ob.get(i).getoDate().substring(0, ob.get(i).getoDate().length() - 2) + "<br></td>");
                 out.println("<td>" + ob.get(i).getDeliveryDate() + "<br></td></tr>");
                 out.println("<tr>");
                 String productOrder = "";
-                  String strVar="";
-                        strVar += "onmouseover=\"this.width='100'; this.height='100'\" onmouseout=\"this.width='20'; this.height='20'\"";
+                String strVar = "";
+                strVar += "onmouseover=\"this.width='100'; this.height='100'\" onmouseout=\"this.width='20'; this.height='20'\"";
+                int total = 0;
                 for (int j = 0; j < bob.size(); j++) {
                     if (j == 0) {
-                        productOrder += (j + 1) + ". ";
-                      
 
-                        productOrder += "<img src=\"img/" + db.queryProductByID(bob.get(j).getpId()).getProductPhoto() + "\" height=\"20\" width=\"20\"" + strVar +" >";
-                        productOrder += bob.get(j).getpId() + " " + db.queryProductByID(bob.get(j).getpId()).getpName();
-                        productOrder += bob.get(j).getgId() + " ";
-                        productOrder += bob.get(j).getQty() + " ";
-                        productOrder += bob.get(j).getPrice() + "<br>";
+                        productOrder += (j + 1) + ". ";
+                        productOrder += "<img src=\"img/" + db.queryProductByID(bob.get(j).getpId()).getProductPhoto() + "\" height=\"20\" width=\"20\"" + strVar + " >";
+                        if (bob.get(j).getpId() != null) {
+                            productOrder += bob.get(j).getpId() + " " + db.queryProductByID(bob.get(j).getpId()).getpName()+" ";
+                        }
+                        if (bob.get(j).getgId() != null) {
+                            productOrder += bob.get(j).getgId() + " ";
+                        }
+
+                        productOrder += "$" + bob.get(j).getPrice() + " * " + bob.get(j).getQty() + "  $" + (int) (bob.get(j).getPrice() * bob.get(j).getQty()) + ".0<br>";
+                        total += (int) (bob.get(j).getPrice() * bob.get(j).getQty());
                     } else {
                         productOrder += (j + 1) + ". ";
-                        
-                        
-                        productOrder += "<img src=\"img/" + db.queryProductByID(bob.get(j).getpId()).getProductPhoto() + "\" height=\"20\" width=\"20\"" + strVar +" >";
-                        productOrder += bob.get(j).getpId() + " " + db.queryProductByID(bob.get(j).getpId()).getpName();
-                        productOrder += bob.get(j).getgId() + " ";
-                        productOrder += bob.get(j).getQty() + " ";
-                        productOrder += bob.get(j).getPrice() + "<br>";
-
+                        productOrder += "<img src=\"img/" + db.queryProductByID(bob.get(j).getpId()).getProductPhoto() + "\" height=\"20\" width=\"20\"" + strVar + " >";
+                        if (bob.get(j).getpId() != null) {
+                            productOrder += bob.get(j).getpId() + " " + db.queryProductByID(bob.get(j).getpId()).getpName()+" ";
+                        }
+                        if (bob.get(j).getgId() != null) {
+                            productOrder += bob.get(j).getgId() + " ";
+                        }
+                        productOrder += "$" + bob.get(j).getPrice() + " * " + bob.get(j).getQty() + "  $" + (int) (bob.get(j).getPrice() * bob.get(j).getQty()) + ".0<br>";
+                        total += (int) (bob.get(j).getPrice() * bob.get(j).getQty());
                     }
+
                 }
-                out.println("<td colspan=\"5\">" + productOrder + "</td></tr>");
+
+                out.println("<td colspan=\"5\">" + productOrder + "<p align='right'>" + "All Total : $" + total + ".0 </p></td></tr>");
             }
             out.println("</table>");
         %>

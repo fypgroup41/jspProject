@@ -3,6 +3,8 @@
     Created on : Nov 25, 2015, 4:50:11 PM
     Author     : Anson
 --%>
+<%@page import="java.net.InetAddress"%>
+<%@page import="java.util.Random"%>
 <%@page import="ict.db.DB"%>
 <%@page import="ict.bean.CategoryBean"%>
 <%@page import="ict.bean.GiftBean"%>
@@ -38,7 +40,6 @@
             }
             table{
                 background-color: #FF9900;
-
             }
             .caption {
                 display: none;
@@ -62,17 +63,12 @@
             #hover-cap-4col .thumbnail {
                 position:relative;
                 overflow:hidden;
-
                 float:left;
                 cursor:pointer;
             }
         </style>
-
         <script type="text/javascript">
-
-
             function SendAddProductRequest(id) {
-
                 var qty = parseInt(document.getElementById(id).value);
                 if (qty !== "NaN" && qty > 0) {
                     window.location = "<%=getServletContext().getContextPath() + "/"%>Cart?item=product&action=add&pid=" + id + "&qty=" + qty;
@@ -80,7 +76,6 @@
                     alert("Please enter a correct format");
                 }
             }
-
             function SendAddGiftRequest(id) {
 
                 var qty = parseInt(document.getElementById(id).value);
@@ -89,40 +84,43 @@
                 } else {
                     alert("Please enter a correct format");
                 }
-
-
             }
         </script>
     </head>
     <body>
-
-
-
         <%@ taglib uri="/tlds/table-taglib.tld" prefix="tableTag"%>
         <jsp:include page="/template/header.jsp"/>  
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchByCatid&catid=cat003&item=gift#" >Menu 1</a></li>
-            <li><a href="#" data-toggle="pill">Menu 2</a></li>
-            <li><a href="<%=getServletContext().getContextPath() + "/"%>/HandleSearch?action=searchByCatid&catid=cat002&item=gift#  " data-toggle="pill">Menu 3</a></li>
-        </ul>
         <%
             DB db = new DB();
             ArrayList<CategoryBean> category = (ArrayList<CategoryBean>) db.queryCategory();
             ProductManufacurerBean productsManufacurer = (ProductManufacurerBean) request.getAttribute("productManufacurer");
-
             if (productsManufacurer != null) {
-
                 out.println("<h4>Product</h4>");
+                if (request.getParameter("action") != null) {
+                    if (request.getParameter("action").equals("searchAll")) {
+                        out.println("      Category : <span style=\"background-color:LightGoldenRodYellow\"><a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchAll&item=product\" >" + "All" + "</a></span>");
+                    } else {
+                        out.println("      Category : <a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchAll&item=product\" >" + "All" + "</a>");
+
+                    }
+
+                }
+
                 for (int i = 0; i < category.size(); i++) {
-                    out.println("<a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift\" >" + category.get(i).getCatName() + "</a>");
+                    if (request.getParameter("catid") != null) {
+                        if (request.getParameter("catid").equals(category.get(i).getCatId())) {
+                            out.println("<span style=\"background-color:LightGoldenRodYellow\"><a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift\" >" + category.get(i).getCatName() + "</a></span>");
+                        } else {
+                            out.println("<a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift\" >" + category.get(i).getCatName() + "</a>");
+                        }
+                    } else {
+                        out.println("<a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift\" >" + category.get(i).getCatName() + "</a>");
+                    }
                 }
                 ArrayList<ManufacturerBean> manufacturer = (ArrayList<ManufacturerBean>) productsManufacurer.getManufacturer();
                 ArrayList<ProductBean> products = (ArrayList<ProductBean>) productsManufacurer.getProducts();
-
                 out.println("<h1>Products</h1>");
-
                 // loop through the customer array to display each customer record
                 if (products.isEmpty()) {
                     //Empty
@@ -138,7 +136,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
+                        <h4 class="modal-title">Modal Header</h4>   
                     </div>
                     <div class="modal-body">
                         <p>Some text in the modal.</p>
@@ -155,15 +153,17 @@
 
             <div class="thumbnail" >
                 <div class="caption">
-                    <h4>Caption Title</h4>
-
                     <i class="fa fa-cart-plus fa-3x"></i>
 
 
 
                 </div>
-                <%              out.println("<div  style=\"background-color:yellow;text-align:center\" id=\"" + "product" + i + "\"><img src=\"img/" + p.getProductPhoto() + "\" class=\"photo\"  title=\"" + p.getDescription() + "\"></img>"
-                            + "<br><span style:\"text-align:center\">" + "$ " + p.getPrice() + "</span>" + "<br>" + "<span style:\"text-align:center\">" + p.getpName() + "</span>" + "" + "<br > <br> </div>"
+                <%
+                    Random ran = new Random();
+                    int round = ran.nextInt(5) + 5;
+
+                    out.println("<div  style=\"background-color:yellow;text-align:center\" id=\"" + "product" + i + "\"><img src=\"img/" + p.getProductPhoto() + "\" class=\"photo\"  title=\"" + p.getDescription() + "\"></img>"
+                            + "<br><span style=\"text-align:center\"\">" + p.getpName() + "</span>" + "<br>" + "<span style=\"text-align:center;color:red;font-size:large\"\"> $" + p.getPrice() + "</span><br><span style=\"text-align:center;font-size:small;\"> $<strike>" + (int) (p.getPrice() * (1.0 + (double) (round / 10.0))) + ".0</strike>" + "/ " + (int) (100 - ((p.getPrice() / (p.getPrice() * (1.0 + (double) (round / 10.0)))) * 100)) + "% OFF " + "</span>" + "" + "<br > <br> </div>"
                     );
                 %>
             </div>
@@ -220,36 +220,6 @@
 
         }
     %>
-
-
-
-    <h2>Activate Modal with JavaScript</h2>
-    <!-- Trigger the modal with a button -->
-    <button type="button" id="myBtn123">Open Modal</button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-
     <br><br>
 
     <jsp:include page="/template/footer.jsp"/>

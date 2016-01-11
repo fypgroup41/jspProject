@@ -22,5 +22,5 @@
 
 <div style="float:right;overflow: scroll;width:50%;height:300px;background-color:wheat">
 
-    <jsp:include page="<%= "/checkSession.jsp"%>"></jsp:include> 
+    <jsp:include page="<%= "/sessionDebug/checkSession.jsp"%>"></jsp:include> 
 </div>
