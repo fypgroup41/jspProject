@@ -1,0 +1,346 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<style>
+    .status {
+        display: inline;
+        padding: 0.2em 0.6em 0.3em;
+        font-size: smaller;
+        font-weight: bold;
+        line-height: 1;
+        color: #FFF;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25em;
+        background-color: #DD5600;
+
+    }
+    table td{
+        border-radius: 0.25em;
+        padding: 0px 10px 5px 0px;
+
+    }
+    table{
+        border-spacing: 15px;
+    }
+</style>
+<html>
+
+    
+        
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JSP Page</title>
+    <body>
+
+        
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script>
+            $(document).ready(function () {
+
+                $("#product0").click(function () {
+                    alert("A");
+                });
+                $('#hover-cap-4col .thumbnail').hover(
+                        function () {
+                            $(this).find('.caption').slideDown(250); //.fadeIn(250)
+                        },
+                        function () {
+                            $(this).find('.caption').slideUp(250); //.fadeOut(205)
+                        }
+                );
+                $('#hover-cap-4col .thumbnail').click(function () {
+                   $('#myModal').find(".modal-body").html("Added A Product into Your Cart");
+                    $("#myModal").modal();
+                });
+
+            });
+        </script>
+        <title>JSP Page</title>
+    </head>
+
+    <style>
+        .tableBorder{
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        .ulTable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .liTable {
+            float: left;
+        }
+        #navigationBar li a {
+            display: block;
+            width: 200px;
+            background-color: #dddddd;
+        }
+        #searchTable{
+            display: inline-block;
+            float: right;
+            text-align: left;
+        }
+        #navigationBar{
+            display:initial;
+            width:100%
+        }
+        input[type=checkbox] {
+            display:none;
+        }
+
+        input[type=checkbox] + label
+        {
+            vertical-align: middle;
+            background-color:orange;
+            height: 20px;
+            width: 20px;
+            display:inline-block;
+            padding: 0 0 0 0px;
+
+        }
+        input[type=checkbox]:checked + label:after
+        {
+            background-color: orange;
+            height: 20px;
+            width: 20px;
+            display:inline-block;
+            padding: 0 0 0 0px;   
+            content: "\2713";
+            display: block;
+            text-align: center;
+            line-height: 150%;
+            font-size: .85em;
+        }
+        .enjoy-css {
+            display: inline-block;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            padding: 3px 5px;
+            border: 1px solid #b7b7b7;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            font: normal 16px/normal "Times New Roman", Times, serif;
+            color: rgba(15,15,15,1);
+            -o-text-overflow: clip;
+            text-overflow: clip;
+            background: rgba(252,252,252,1);
+            -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
+            box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
+            -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+            -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+            -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+            transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+        }     .ed, .bk {
+            text-decoration:none;
+            color: black;
+        }
+    </style>
+
+
+
+    <script>
+        function SendSearchRequest(product, gift, keyword, price) {
+            var productLink = "";
+            var giftLink = "";
+            var priceLink = "";
+            if (product.checked) {
+                productLink = "&product=" + keyword.value;
+            }
+            if (gift.checked) {
+                giftLink = "&gift=" + keyword.value;
+            }
+            if (price.value >= 0) {
+                priceLink = "&price=" + price.value;
+            }
+
+            if (productLink == "" && giftLink == "") {
+                alert("Please choose the search type");
+            } else {
+                window.location = "/" + "HandleSearch?action=searchByKeywords" + productLink + giftLink + priceLink;
+            }
+        }
+    </script>
+    <body>
+        <script src="javascript/sorttable.js"></script>
+        
+        
+        <div align="right">
+            <a href="/userSetting.jsp" title="bonus points:&nbsp;0" > <img  src="/icon/user.png" id="user" width="25" height="25" style="vertical-align:top"><span style="vertical-align:top; ">mem001&#x25BE</span></a></div>    
+                
+
+
+
+
+        <h3><img src="/img/logo.jpg"  wiidth="100" height="75" style="vertical-align:middle" />  Welcome Stationery Online Station 
+            <table id="searchTable" >
+                <tr>
+                    <td>Search Keyword :</td><td><input type=\"text\"class="enjoy-css" id="keyword"/></td>
+                    <td><img   src="/icon/search.png" id="search" style="cursor:pointer" onclick=" javascript:SendSearchRequest(product, gift, keyword, price)"></td></tr>
+                <tr>
+                    <td>$ below
+                        <select name="price" id="price">
+                            <option value="0">/</option>
+                            <option value="250">250</option>
+                            <option value="100">100</option>
+                            <option value="50">50</option>
+                        </select>
+                    </td>
+                    <td>
+                        Product <input type="checkbox" id="product" value="product" ><label for="product"  style="cursor:pointer"></label>       
+                        Gift <input type="checkbox" id="gift" value="gift"><label for="gift"  style="cursor:pointer"></label> 
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </h3>  
+
+        <div id="navigationBar">
+            <ul class="ulTable">
+                <li class="liTable"><button type="button" onclick="window.location.href = '//ShowAll'" class="btn">Home</button></li>
+                    
+                <li class="liTable"><button type="button" onclick="window.location.href = '/HandleSearch?action=searchAll&item=product'" class="btn">Product</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '/HandleSearch?action=searchAll&item=gift'" class="btn">Gift</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '/HandleSearch?action=searchByPrice&price=500&order=asc&item=product'" class="btn">searchByPrice</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = 'http://cdnjs.com/libraries/twitter-bootstrap'" class="btn">Basic Button</button></li>
+                    
+                <li class="liTable"><button type="button" onclick="window.location.href = '/showUserOrder.jsp'" class="btn">Show Order</button></li>
+                <li class="liTable"><button type="button" onclick="window.location.href = '/main?action=logout'" class="btn">Logout</button></li>
+                    
+            </ul>
+        </div>
+
+
+
+        <hr>
+
+    </body>
+</html>
+
+        <h1>Order Order</h1>
+
+
+
+        <table  border="1" class="table"><tr><th>Order No.</th><th>Delivery Arragement</th><th>Status</th><th>Date</th><th>Delivery Date</th></tr>
+<tr>
+<td>o015<br></td>
+<td><strong>Self-Pick-Up</strong></td>
+<td><span  class="status" style="width:300">Process</span></td>
+<td>2015-12-20 23:15:55<br></td>
+<td>2017-11-05<br></td></tr>
+<tr>
+<td colspan="5">1. <img src="img/rubber.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p002 WS Rubber $6.0 * 1  $6.0<br><p align='right'>All Total : $6.0 </p></td></tr>
+<tr>
+<td>o014<br></td>
+<td><strong>Self-Pick-Up</strong></td>
+<td><span  class="status" style="width:300">Process</span></td>
+<td>2015-12-20 23:14:59<br></td>
+<td>2010-11-11<br></td></tr>
+<tr>
+<td colspan="5">1. <img src="img/2b.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p001 WS 2B pencil $3.0 * 1  $3.0<br><p align='right'>All Total : $3.0 </p></td></tr>
+<tr>
+<td>o013<br></td>
+<td><strong>Self-Pick-Up</strong></td>
+<td><span  class="status" style="width:300">Process</span></td>
+<td>2015-12-20 00:00:00<br></td>
+<td>2010-11-11<br></td></tr>
+<tr>
+<td colspan="5">1. <img src="img/2b.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p001 WS 2B pencil $3.0 * 1  $3.0<br><p align='right'>All Total : $3.0 </p></td></tr>
+<tr>
+<td>o009<br></td>
+<td><strong>Self-Pick-Up</strong></td>
+<td><span  class="status" style="width:300">Process</span></td>
+<td>2015-12-20 00:00:00<br></td>
+<td>2015-12-20<br></td></tr>
+<tr>
+<td colspan="5">1. <img src="img/2b.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p001 WS 2B pencil $3.0 * 1  $3.0<br><p align='right'>All Total : $3.0 </p></td></tr>
+<tr>
+<td>o003<br></td>
+<td><strong>Delivery</strong></td>
+<td><span  class="status" style="width:300">Delivered</span></td>
+<td>2015-11-29 15:56:33<br></td>
+<td>2015-12-22<br></td></tr>
+<tr>
+<td colspan="5">1. <img src="img/2b.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p001 WS 2B pencil $3.0 * 1  $3.0<br><p align='right'>All Total : $3.0 </p></td></tr>
+<tr>
+<td>o002<br></td>
+<td><strong>Delivery</strong></td>
+<td><span  class="status" style="width:300">Process</span></td>
+<td>2015-11-29 15:56:33<br></td>
+<td>2015-12-22<br></td></tr>
+<tr>
+<td colspan="5">1. <img src="img/36798.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p004 Pilot Pen (Red) $8.0 * 1  $8.0<br>2. <img src="img/hitec.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p003 Pilot Hi-Tec Pen $48.0 * 4  $192.0<br>3. <img src="img/tape.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p006 Mono 4mm Correction Tape $16.0 * 1  $16.0<br>4. <img src="img/tape.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >g002 $0.0 * 1  $0.0<br><p align='right'>All Total : $216.0 </p></td></tr>
+<tr>
+<td>o001<br></td>
+<td><strong>Self-Pick-Up</strong></td>
+<td><span  class="status" style="width:300">Picked-Up</span></td>
+<td>2015-11-29 15:56:33<br></td>
+<td>2015-11-30<br></td></tr>
+<tr>
+<td colspan="5">1. <img src="img/2b.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p001 WS 2B pencil $30.0 * 10  $300.0<br>2. <img src="img/rubber.jpg" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p002 WS Rubber $6.0 * 1  $6.0<br>3. <img src="img/ruler.png" height="20" width="20"onmouseover="this.width='100'; this.height='100'" onmouseout="this.width='20'; this.height='20'" >p005 WS Ruler $6.0 * 1  $6.0<br><p align='right'>All Total : $312.0 </p></td></tr>
+</table>
+
+        <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="application/javascript">
+    $(function () {      
+    $("#log_status").append("<div style=\"background-color:AntiqueWhite;font-family: Monospace\"><div>"+"null"+"</div></div>");
+    });
+
+</script>
+<div style="overflow: scroll;width:100%;display: block">
+    <br><br>
+    <p align="center"><a href="sitmap.jsp">Site Map</a>&nbsp;|&nbsp;<a href="index.jsp">Home Page</a>&nbsp;|&nbsp;<a href="help.jsp">Help</a></p>
+    <p align="center">© 1996-2015, stationery_online_station.com, Inc. or its affiliates</p>
+</div>
+
+<div id="log_status" style="overflow: scroll;width:50%;height:300px;background-color:Lavender;float:left;">
+    <h4>Log Console</h4>
+</div>
+
+
+
+
+<div style="float:right;overflow: scroll;width:50%;height:300px;background-color:wheat">
+
+    
+
+
+
+
+  http://localhost:8080/showUserOrder.jsp<br>/showUserOrder.jsp<br>Eddie-PC/221.124.14.94<br>null<br>http://localhost:8080<br><br>/showUserOrder.jsp<br>
+<h1>Session in JSP</h1>
+Your session ID is :  687d8059a74af6fa3bebbfdc82c0
+<br>
+Session created at  Tue Jan 12 23:50:18 CST 2016
+<br>
+Last time of activity Tue Jan 12 23:50:23 CST 2016
+<br>
+userInfo: ict.bean.UserBean@27dfa370<br>
+ 
+</div>
+    </body>
+</html>

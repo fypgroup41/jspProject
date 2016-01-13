@@ -55,7 +55,7 @@ public class HandleOrder extends HttpServlet {
             request.setAttribute("updated", updated);
             RequestDispatcher rd;
             updated="";
-            rd = getServletContext().getRequestDispatcher("/listOrder.jsp");
+            rd = getServletContext().getRequestDispatcher("pong/listOrder.jsp");
             rd.forward(request, response);
         } else if ("details".equalsIgnoreCase(action)) {
             String id = request.getParameter("oId");
@@ -64,7 +64,7 @@ public class HandleOrder extends HttpServlet {
                 pod = db.queryProductOrderByID(id);
                 request.setAttribute("pod", db.queryProductOrderByID(id));
                 RequestDispatcher rd;
-                rd = getServletContext().getRequestDispatcher("/listOrderDetails.jsp");
+                rd = getServletContext().getRequestDispatcher("pong/listOrderDetails.jsp");
                 rd.forward(request, response);
             } else {
                 PrintWriter out = response.getWriter();

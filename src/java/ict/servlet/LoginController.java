@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
-            action = "authenticate";
+            
             if (!isAuthenticated(request)
                     && !("authenticate".equals(action))) {
                 doLogin(request, response);
@@ -87,11 +87,11 @@ public class LoginController extends HttpServlet {
 
     private void doAuthenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            //String uid = request.getParameter("username");
+            String uid = request.getParameter("username");
 
-            //String password = request.getParameter("password");
-            String uid = "mem001";
-            String password = "12345";
+            String password = request.getParameter("password");
+           // String uid = "mem001";
+        //    String password = "12345";
             String targetURL;
             boolean isValid = db.isValidUser(uid, password);
             if (isValid) {
@@ -111,7 +111,7 @@ public class LoginController extends HttpServlet {
                  rd = getServletContext().getRequestDispatcher("/welcome.jsp");
                  rd.forward(request, response);
                  }*/
-                rd = getServletContext().getRequestDispatcher("/welcome.jsp");
+                rd = getServletContext().getRequestDispatcher("/HandleSearch?action=searchAll&item=product");
                 rd.forward(request, response);
             } else {
                 PrintWriter out = response.getWriter();
@@ -119,8 +119,36 @@ public class LoginController extends HttpServlet {
             }
         } catch (Exception ex) {
             PrintWriter out = response.getWriter();
-            out.println("Login Fail! Prease try again");
+            out.println("Login Fail! Prease try again"+ex.getMessage());
         }
     }
 
 }
+  /*         LogManager lm = LogManager.getLogManager();
+            Logger logger;
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd___HH_mm_ss");
+            Date date = new Date();
+
+            FileHandler fh = new FileHandler(dateFormat.format(date) + ".log");
+
+            logger = Logger.getLogger("LoggingExample1");
+
+            lm.addLogger(logger);
+            logger.setLevel(Level.INFO);
+            fh.setFormatter(new XMLFormatter());
+
+            logger.addHandler(fh);
+            logger.log(Level.INFO, "test 1");
+            logger.log(Level.INFO, "test 2");
+            logger.log(Level.INFO, "test 3");
+            /* 
+            logger.severe("嚴重訊息");
+            logger.warning("警示訊息"); 
+            logger.info("一般訊息");
+            logger.config("設定方面的訊息");
+            logger.fine("細微的訊息");
+            logger.finer("更細微的訊息");
+            logger.finest("最細微的訊息");
+          
+            fh.close();   */

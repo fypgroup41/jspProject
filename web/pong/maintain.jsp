@@ -15,10 +15,10 @@
         <jsp:include page="/template/header.jsp"/>
         <h1>Manager System</h1>
         
-    <li><a href="handleProduct?action=list">Product Maintain</a></li>
-    <li><a href="handleUser1?action=list">User Setting</a></li>
-    <li><a href="handleOrder?action=list">Order Maintain</a></li>
-    <li><a href="handleGift?action=list">Gift Maintain</a></li>
+    <li><a href="/handleProduct?action=list">Product Maintain</a></li>
+    <li><a href="/handleUser1?action=list">User Setting</a></li>
+    <li><a href="/handleOrder?action=list">Order Maintain</a></li>
+    <li><a href="/handleGift?action=list">Gift Maintain</a></li>
     <jsp:include page="/template/footer.jsp"/>
     </body>
 </html>

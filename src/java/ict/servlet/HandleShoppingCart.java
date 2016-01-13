@@ -69,14 +69,14 @@ public class HandleShoppingCart extends HttpServlet {
                     cartBounspt += gcb.get(i).getGb().getPt() * gcb.get(i).getQty();
                 }
                 if (bounspt > cartBounspt) {
-                    response.sendRedirect("confirmOrder.jsp");
+                    response.sendRedirect("userConfirmOrder.jsp");
                 } else {
                     PrintWriter out = response.getWriter();
                     out.println("Not Enough Bouns Point to buy gifts");
                 }
 
             } else {
-                response.sendRedirect("confirmOrder.jsp");
+                response.sendRedirect("userConfirmOrder.jsp");
             }
 
         }

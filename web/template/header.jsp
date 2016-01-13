@@ -17,10 +17,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <script>
             $(document).ready(function () {
-
-                $("#product0").click(function () {
-                    alert("A");
-                });
                 $('#hover-cap-4col .thumbnail').hover(
                         function () {
                             $(this).find('.caption').slideDown(250); //.fadeIn(250)
@@ -30,8 +26,12 @@
                         }
                 );
                 $('#hover-cap-4col .thumbnail').click(function () {
-                   $('#myModal').find(".modal-body").html("<h1>ABC</h1>");
-                    $("#myModal").modal();
+            <%--$('#myModal').find(".modal-body").html("Added A Product into Your Cart");
+            $("#myModal").modal(); --%>
+                    $(".alert").css("display", "block");
+                });
+                $('.close').click(function () {
+                    $(".alert").css("display", "none");
                 });
 
             });
@@ -151,64 +151,60 @@
         <%
             if (userInfo.getuId() != null) {
         %>
-        <div align="right">
-            <a href="<%=getServletContext().getContextPath() + "/"%>editUser.jsp" title="bonus points:&nbsp;<%=userInfo.getBounspt()%>" > <img  src="<%=getServletContext().getContextPath() + "/"%>icon/user.png" id="user" width="25" height="25" style="vertical-align:top"><span style="vertical-align:top; "><jsp:getProperty name="userInfo" property="uId" />&#x25BE</span></a></div>    
+        <div  style="float:right"> 
+            <a href="<%=getServletContext().getContextPath() + "/"%>userSetting.jsp" title="bonus points:&nbsp;<%=userInfo.getBounspt()%>" > <img  src="<%=getServletContext().getContextPath() + "/"%>icon/user.png" id="user" width="25" height="25" style="vertical-align:top"><span style="vertical-align:top; "><jsp:getProperty name="userInfo" property="uId" />&#x25BE</span></a></div>    
                 <%                } else {
                         out.println("<div align=\"right\">Please <a href=\"" + getServletContext().getContextPath() + "/index.jsp \">Login</a></div>");
                     }
                 %>
+        <p style="font-size:larger"><img src="<%=getServletContext().getContextPath() + ""%>/img/logo.jpg"  wiidth="100" height="75" style="vertical-align:middle" />  Welcome Stationery Online Station 
+        <table id="searchTable" >
+            <tr>
+                <td>Search Keyword :</td><td><input type=\"text\"class="enjoy-css" id="keyword"/></td>
+                <td><img   src="<%=getServletContext().getContextPath() + "/"%>icon/search.png" id="search" style="cursor:pointer" onclick=" javascript:SendSearchRequest(product, gift, keyword, price)"></td></tr>
+            <tr>
+                <td>$ below
+                    <select name="price" id="price">
+                        <option value="0">/</option>
+                        <option value="250">250</option>
+                        <option value="100">100</option>
+                        <option value="50">50</option>
+                    </select>
+                </td>
+                <td>
+                    Product <input type="checkbox" id="product" value="product" ><label for="product"  style="cursor:pointer"></label>       
+                    Gift <input type="checkbox" id="gift" value="gift"><label for="gift"  style="cursor:pointer"></label> 
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </p>  
+
+    <div id="navigationBar">
+        <ul class="ulTable">
+            <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/ShowAll'" class="btn">Home</button></li>
+                <%
+                    UserBean user = (UserBean) session.getAttribute("userInfo");
+                    if (user.getuType().equals("a")) {
+                        out.println("<li class=\"liTable\"><a href=\"pong/maintain.jsp\">Maintain</a></li>");
+                    }
+                %>
+            <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchAll&item=product'" class="btn">Product</button></li>
+            <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchAll&item=gift'" class="btn">Gift</button></li>
+            <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchByPrice&price=500&order=asc&item=product'" class="btn">searchByPrice</button></li>
+            
+                <%
+                    if (userInfo.getuId() != null) {
+                %>
+            <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>showUserOrder.jsp'" class="btn">Show Order</button></li>
+            <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>main?action=logout'" class="btn">Logout</button></li>
+                <%}%>
+        </ul>
+    </div>
 
 
 
+    <hr>
 
-        <h3><img src="<%=getServletContext().getContextPath() + "/"%>img/logo.jpg"  wiidth="100" height="75" style="vertical-align:middle" />  Welcome Stationery Online Station 
-            <table id="searchTable" >
-                <tr>
-                    <td>Search Keyword :</td><td><input type=\"text\"class="enjoy-css" id="keyword"/></td>
-                    <td><img   src="<%=getServletContext().getContextPath() + "/"%>icon/search.png" id="search" style="cursor:pointer" onclick=" javascript:SendSearchRequest(product, gift, keyword, price)"></td></tr>
-                <tr>
-                    <td>$ below
-                        <select name="price" id="price">
-                            <option value="0">/</option>
-                            <option value="250">250</option>
-                            <option value="100">100</option>
-                            <option value="50">50</option>
-                        </select>
-                    </td>
-                    <td>
-                        Product <input type="checkbox" id="product" value="product" ><label for="product"  style="cursor:pointer"></label>       
-                        Gift <input type="checkbox" id="gift" value="gift"><label for="gift"  style="cursor:pointer"></label> 
-                    </td>
-                    <td></td>
-                </tr>
-            </table>
-        </h3>  
-
-        <div id="navigationBar">
-            <ul class="ulTable">
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>/ShowAll'" class="btn">Home</button></li>
-                    <%
-                        UserBean user = (UserBean) session.getAttribute("userInfo");
-                        if (user.getuType().equals("a")) {
-                            out.println("<li class=\"liTable\"><a href=\"maintain.jsp\">Maintain</a></li>");
-                        }
-                    %>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchAll&item=product'" class="btn">Product</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchAll&item=gift'" class="btn">Gift</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>HandleSearch?action=searchByPrice&price=500&order=asc&item=product'" class="btn">searchByPrice</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href = 'http://cdnjs.com/libraries/twitter-bootstrap'" class="btn">Basic Button</button></li>
-                    <%
-                        if (userInfo.getuId() != null) {
-                    %>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>showUserOrder.jsp'" class="btn">Show Order</button></li>
-                <li class="liTable"><button type="button" onclick="window.location.href = '<%=getServletContext().getContextPath() + "/"%>main?action=logout'" class="btn">Logout</button></li>
-                    <%}%>
-            </ul>
-        </div>
-
-
-
-        <hr>
-
-    </body>
+</body>
 </html>

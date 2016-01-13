@@ -54,7 +54,7 @@ public class HandleUser1 extends HttpServlet {
             request.setAttribute("updated", updated);
             RequestDispatcher rd;
             updated="";
-            rd = getServletContext().getRequestDispatcher("/listUser.jsp");
+            rd = getServletContext().getRequestDispatcher("pong/listUser.jsp");
             rd.forward(request, response);
         } else if ("update".equalsIgnoreCase(action)) {
             

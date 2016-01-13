@@ -53,7 +53,7 @@ public class HandleGift extends HttpServlet {
             request.setAttribute("deleted", deleted);
             RequestDispatcher rd;
             deleted = "";
-            rd = getServletContext().getRequestDispatcher("/listGiftm.jsp");
+            rd = getServletContext().getRequestDispatcher("pong/listGiftm.jsp");
             rd.forward(request, response);
         } else if ("delete".equalsIgnoreCase(action)) {
             String[] id = request.getParameterValues("gid");
@@ -104,7 +104,7 @@ public class HandleGift extends HttpServlet {
             ArrayList<ManufacturerBean> mb = db.queryManufacturer();
             request.setAttribute("mb", mb);
             RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/editGift.jsp");
+            rd = getServletContext().getRequestDispatcher("pong/editGift.jsp");
             rd.forward(request, response);
             /*PrintWriter out = response.getWriter();
                 out.println("99999");*/

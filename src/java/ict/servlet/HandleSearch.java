@@ -87,21 +87,42 @@ public class HandleSearch extends HttpServlet {
                 rd.forward(request, response);
             }
         } else if (action.equalsIgnoreCase("searchByCatid")) {
-            String condition = request.getParameter("catid");
-            //String order = request.getParameter("order");
-            ArrayList<ProductBean> products = db.queryProductByCatID(condition);
-            ArrayList<ManufacturerBean> manufacturer = new ArrayList<ManufacturerBean>();
-            for (int i = 0; i < products.size(); i++) {
-                manufacturer.add(db.queryManufacturerByMID(products.get(i).getmId()));
+            String item = request.getParameter("item");
+            if (item.equals("product")) {
+                String condition = request.getParameter("catid");
+                //String order = request.getParameter("order");
+                ArrayList<ProductBean> products = db.queryProductByCatID(condition);
+                ArrayList<ManufacturerBean> manufacturer = new ArrayList<ManufacturerBean>();
+                for (int i = 0; i < products.size(); i++) {
+                    manufacturer.add(db.queryManufacturerByMID(products.get(i).getmId()));
+                }
+                ProductManufacurerBean productManufacurer = new ProductManufacurerBean();
+                productManufacurer.setManufacturer(manufacturer);
+                productManufacurer.setProducts(products);
+                request.setAttribute("productManufacurer", productManufacurer);
+                request.setAttribute("products", products);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/search/searchResult.jsp");
+                rd.forward(request, response);
             }
-            ProductManufacurerBean productManufacurer = new ProductManufacurerBean();
-            productManufacurer.setManufacturer(manufacturer);
-            productManufacurer.setProducts(products);
-            request.setAttribute("productManufacurer", productManufacurer);
-            request.setAttribute("products", products);
-            RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/search/searchResult.jsp");
-            rd.forward(request, response);
+            if (item.equals("gift")) {
+                String condition = request.getParameter("catid");
+                ArrayList<GiftBean> gift = db.queryGiftByCatID(condition);
+                ArrayList<ManufacturerBean> manufacturer2 = new ArrayList<ManufacturerBean>();
+                for (int i = 0; i < gift.size(); i++) {
+                    manufacturer2.add(db.queryManufacturerByMID(gift.get(i).getmId()));
+                }
+
+                ProductManufacurerBean productManufacurer2 = new ProductManufacurerBean();
+                productManufacurer2.setManufacturer(manufacturer2);
+                productManufacurer2.setGifts(gift);
+                request.setAttribute("productManufacurer2", productManufacurer2);
+
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/search/searchResult.jsp");
+                rd.forward(request, response);
+
+            }
 
         } else if (action.equalsIgnoreCase("searchByPrice")) {
             double condition = Double.parseDouble(request.getParameter("price"));

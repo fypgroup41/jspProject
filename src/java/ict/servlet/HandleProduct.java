@@ -50,7 +50,7 @@ public class HandleProduct extends HttpServlet {
             request.setAttribute("deleted", deleted);
             RequestDispatcher rd;
             deleted = "";
-            rd = getServletContext().getRequestDispatcher("/listProducts.jsp");
+            rd = getServletContext().getRequestDispatcher("pong/listProducts.jsp");
             rd.forward(request, response);
         } else if ("delete".equalsIgnoreCase(action)) {
             String[] id = request.getParameterValues("pid");
@@ -101,7 +101,7 @@ public class HandleProduct extends HttpServlet {
             ArrayList<ManufacturerBean> mb = db.queryManufacturer();
             request.setAttribute("mb", mb);
             RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/editProduct.jsp");
+            rd = getServletContext().getRequestDispatcher("pong/editProduct.jsp");
             rd.forward(request, response);
         } else if ("edit".equalsIgnoreCase(action)) {
             String pId = request.getParameter("pId");

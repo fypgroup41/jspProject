@@ -3,6 +3,7 @@
     Created on : Nov 25, 2015, 4:50:11 PM
     Author     : Anson
 --%>
+<%@page import="java.io.OutputStream"%>
 <%@page import="java.net.InetAddress"%>
 <%@page import="java.util.Random"%>
 <%@page import="ict.db.DB"%>
@@ -65,11 +66,13 @@
                 overflow:hidden;
                 float:left;
                 cursor:pointer;
+                margin-right:10px;
             }
         </style>
         <script type="text/javascript">
             function SendAddProductRequest(id) {
-                var qty = parseInt(document.getElementById(id).value);
+              //  var qty = parseInt(document.getElementById(id).value);
+              var qty=1;
                 if (qty !== "NaN" && qty > 0) {
                     window.location = "<%=getServletContext().getContextPath() + "/"%>Cart?item=product&action=add&pid=" + id + "&qty=" + qty;
                 } else {
@@ -88,50 +91,21 @@
         </script>
     </head>
     <body>
+
+
         <%@ taglib uri="/tlds/table-taglib.tld" prefix="tableTag"%>
         <jsp:include page="/template/header.jsp"/>  
+        <!-- Alert  -->
+        <div class="alert alert-warning alert-dismissible fade in" role="alert" style="display:none">
+            <button type="button" class="close"  >
+                <span>&times;</span>
+            </button>
+            <strong>Product</strong> This products Added
+        </div>
 
-        <%
-            DB db = new DB();
-            ArrayList<CategoryBean> category = (ArrayList<CategoryBean>) db.queryCategory();
-            ProductManufacurerBean productsManufacurer = (ProductManufacurerBean) request.getAttribute("productManufacurer");
-            if (productsManufacurer != null) {
-                out.println("<h4>Product</h4>");
-                if (request.getParameter("action") != null) {
-                    if (request.getParameter("action").equals("searchAll")) {
-                        out.println("      Category : <span style=\"background-color:LightGoldenRodYellow\"><a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchAll&item=product\" >" + "All" + "</a></span>");
-                    } else {
-                        out.println("      Category : <a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchAll&item=product\" >" + "All" + "</a>");
-
-                    }
-
-                }
-
-                for (int i = 0; i < category.size(); i++) {
-                    if (request.getParameter("catid") != null) {
-                        if (request.getParameter("catid").equals(category.get(i).getCatId())) {
-                            out.println("<span style=\"background-color:LightGoldenRodYellow\"><a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift\" >" + category.get(i).getCatName() + "</a></span>");
-                        } else {
-                            out.println("<a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift\" >" + category.get(i).getCatName() + "</a>");
-                        }
-                    } else {
-                        out.println("<a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift\" >" + category.get(i).getCatName() + "</a>");
-                    }
-                }
-                ArrayList<ManufacturerBean> manufacturer = (ArrayList<ManufacturerBean>) productsManufacurer.getManufacturer();
-                ArrayList<ProductBean> products = (ArrayList<ProductBean>) productsManufacurer.getProducts();
-                out.println("<h1>Products</h1>");
-                // loop through the customer array to display each customer record
-                if (products.isEmpty()) {
-                    //Empty
-                }
-                for (int i = 0; i < products.size(); i++) {
-                    ProductBean p = products.get(i);
-        %>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog -sm">
-
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
@@ -149,30 +123,87 @@
             </div>
         </div>
 
-        <ul class="thumbnails" id="hover-cap-4col" class="tableShow" data-toggle="modal" data-target="#myModal">
 
-            <div class="thumbnail" >
+
+
+
+
+
+
+
+
+        <%
+            try {
+
+                DB db = new DB();
+                ArrayList<CategoryBean> category = (ArrayList<CategoryBean>) db.queryCategory();
+                ProductManufacurerBean productsManufacurer = (ProductManufacurerBean) request.getAttribute("productManufacurer");
+                if (productsManufacurer != null) {
+                    out.println("<h4>Product</h4>");
+                    if (request.getParameter("action") != null) {
+
+        %>
+
+        <%-- Category Name --%>
+        <%            String link = getServletContext().getContextPath() + "/HandleSearch?action=searchAll&item=product";
+                String linkHref = "<a href=\"" + link + "\" >" + "All" + "</a>";
+                if (request.getParameter("action").equals("searchAll")) {
+                    out.println("      Category : <span style=\"background-color:LightGoldenRodYellow\">" + linkHref + "</span>");
+                } else {
+                    out.println("      Category : " + linkHref);
+                }
+            }
+            for (int i = 0; i < category.size(); i++) {
+                String link = getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift";
+                String linkHref = "<a href=\"" + link + "\" >" + category.get(i).getCatName() + "</a>";
+                if (request.getParameter("catid") != null) {
+                    if (request.getParameter("catid").equals(category.get(i).getCatId())) {
+                        out.println("<span style=\"background-color:LightGoldenRodYellow\">" + linkHref + "</span>");
+                    } else {
+                        out.println(linkHref);
+                    }
+                } else {
+                    out.println(linkHref + "");
+                }
+            }
+
+        %>
+
+        <%-- Product Table --%>
+        <%            ArrayList<ManufacturerBean> manufacturer = (ArrayList<ManufacturerBean>) productsManufacurer.getManufacturer();
+            ArrayList<ProductBean> products = (ArrayList<ProductBean>) productsManufacurer.getProducts();
+            if (products.isEmpty()) {
+                out.println("<br><br>No Such Product(s)<br>");
+            }
+            for (int j = 0; j < products.size(); j++) {
+                ProductBean p = products.get(j);
+        %>
+        <%--   <ul class="thumbnails" id="hover-cap-4col" class="tableShow" data-toggle="modal" data-target="#myModal">  --%>
+        <ul class="thumbnails" id="hover-cap-4col" class="tableShow"  > 
+            <div class="thumbnail" onclick="javascript:SendAddProductRequest('<%=p.getpId()%>')">
                 <div class="caption">
                     <i class="fa fa-cart-plus fa-3x"></i>
-
-
-
                 </div>
-                <%
-                    Random ran = new Random();
+                <%                    Random ran = new Random();
                     int round = ran.nextInt(5) + 5;
-
-                    out.println("<div  style=\"background-color:yellow;text-align:center\" id=\"" + "product" + i + "\"><img src=\"img/" + p.getProductPhoto() + "\" class=\"photo\"  title=\"" + p.getDescription() + "\"></img>"
+                    out.println("<div  style=\"background-color:yellow;text-align:center\" id=\"" + p.getpId() + "\"><img src=\"img/" + p.getProductPhoto() + "\" class=\"photo\"  title=\"" + p.getDescription() + "\"></img>"
                             + "<br><span style=\"text-align:center\"\">" + p.getpName() + "</span>" + "<br>" + "<span style=\"text-align:center;color:red;font-size:large\"\"> $" + p.getPrice() + "</span><br><span style=\"text-align:center;font-size:small;\"> $<strike>" + (int) (p.getPrice() * (1.0 + (double) (round / 10.0))) + ".0</strike>" + "/ " + (int) (100 - ((p.getPrice() / (p.getPrice() * (1.0 + (double) (round / 10.0)))) * 100)) + "% OFF " + "</span>" + "" + "<br > <br> </div>"
                     );
+
+                    
                 %>
+
             </div>
-
-            <%-- <input  type =\"number\" id=\"" + p.getpId() + "\" name=\"" + p.getpId() + "\" value=\"1\"/>"
-                            + "<input type=\"button\"  onclick=\"javascript:SendAddProductRequest('" + p.getpId() + "')\" value=\"Add\"> --%>
-
         </li>     
     </ul>        
+
+
+
+
+
+
+
+
     <%
             }
 
@@ -183,45 +214,75 @@
 
 
 
-    <%            ProductManufacurerBean productsManufacurer2 = (ProductManufacurerBean) request.getAttribute("productManufacurer2");
 
-        if (productsManufacurer2 != null) {
+
+    <%-- Gift Table --%>
+    <%        ProductManufacurerBean productsManufacurer2 = (ProductManufacurerBean) request.getAttribute("productManufacurer2");
+
+        if (productsManufacurer2
+                != null) {
             out.println("<h4>Gift</h4>");
-            for (int i = 0; i < category.size(); i++) {
-                out.println("<a href=\"" + getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=product\" >" + category.get(i).getCatName() + "</a>");
+    %>
+
+    <%      String link = getServletContext().getContextPath() + "/HandleSearch?action=searchAll&item=gift";
+        String linkHref = "<a href=\"" + link + "\" >" + "All" + "</a>";
+        if (request.getParameter("action").equals("searchAll")) {
+            out.println("      Category : <span style=\"background-color:LightGoldenRodYellow\">" + linkHref + "</span>");
+        } else {
+            out.println("      Category : " + linkHref);
+        }
+
+        for (int i = 0; i < category.size(); i++) {
+            link = getServletContext().getContextPath() + "/HandleSearch?action=searchByCatid&catid=" + category.get(i).getCatId() + "&item=gift";
+            linkHref = "<a href=\"" + link + "\" >" + category.get(i).getCatName() + "</a>";
+            if (request.getParameter("catid") != null) {
+                if (request.getParameter("catid").equals(category.get(i).getCatId())) {
+                    out.println("<span style=\"background-color:LightGoldenRodYellow\">" + linkHref + "</span>");
+                } else {
+                    out.println(linkHref);
+                }
+            } else {
+                out.println(linkHref + "");
             }
-
-            ArrayList<ManufacturerBean> manufacturer2 = (ArrayList<ManufacturerBean>) productsManufacurer2.getManufacturer();
-            ArrayList<GiftBean> gifts = (ArrayList<GiftBean>) productsManufacurer2.getGifts();
-
-            out.println("<h1>Products</h1>");
-            out.println("<table border='1' class=\"sortable\">");
-            out.println("<tr>");
-            out.println("<th>Product Photo</th><th>Product Name </th> <th>Product Description</th><th>Price</th><th>Stock Quantity</th ><th></th >");
-            out.println("</tr>");
-            // loop through the customer array to display each customer record
-            if (gifts.isEmpty()) {
-                out.println("<td colspan = 4 align = center>No Such Product(s)</td>");
-            }
-            for (int i = 0; i < gifts.size(); i++) {
-                GiftBean g = gifts.get(i);
-                out.println("<tr>");
-                out.println("<td><img src=\"img/" + g.getGiftPhoto() + "\" width=\"200\" height=\"200\"></img> </td>");
-                out.println("<td>" + g.getgName() + "</td>");
-                out.println("<td>" + g.getDescription() + "</td>");
-                out.println("<td>" + g.getPt() + "pt</td>");
-                out.println("<td>" + g.getStockQty() + "</td>");
-                out.println("<td>Quantity : <input  type=\"number\" id=\"" + g.getgId() + "\" name=\"" + g.getgId() + "\" value=\"1\"/>"
-                        + "&nbsp&nbsp&nbsp&nbsp<input type=\"button\"  onclick=\"javascript:SendAddGiftRequest('" + g.getgId() + "')\" value=\"Add\"></td>");
-
-                out.println("</tr>");
-            }
-            out.println("</table>");
-
         }
     %>
-    <br><br>
 
-    <jsp:include page="/template/footer.jsp"/>
+    <%        ArrayList<ManufacturerBean> manufacturer2 = (ArrayList<ManufacturerBean>) productsManufacurer2.getManufacturer();
+        ArrayList<GiftBean> gifts = (ArrayList<GiftBean>) productsManufacurer2.getGifts();
+
+        // loop through the customer array to display each customer record
+        if (gifts.isEmpty()) {
+            out.println("<br><br>No Such Product(s)<br>");
+        }
+        for (int k = 0; k < gifts.size(); k++) {
+            GiftBean g = gifts.get(k);
+    %>
+
+    <ul class="thumbnails" id="hover-cap-4col" class="tableShow" > 
+        <div class="thumbnail" >
+            <div class="caption">
+                <i class="fa fa-cart-plus fa-3x"></i>
+            </div>
+            <%                    Random ran = new Random();
+                int round = ran.nextInt(5) + 5;
+                out.println("<div  style=\"background-color:yellow;text-align:center\" id=\"" + "product" + k + "\"><img src=\"img/" + g.getGiftPhoto() + "\" class=\"photo\"  title=\"" + g.getDescription() + "\"></img>"
+                        + "<br><span style=\"text-align:center\"\">" + g.getgName() + "</span>" + "<br>" + "<span style=\"text-align:center;color:red;font-size:large\"\"> $" + g.getPt() + "</span><br><span style=\"text-align:center;font-size:small;\">" + "</span>" + "" + "<br > <br> </div>"
+                );
+            %>
+        </div>
+    </li>     
+</ul> 
+<%
+            }
+        }
+
+    } catch (Exception ex) {
+        out.print(ex.getMessage());
+    }
+
+
+%>
+<br><br>
+<jsp:include page="/template/footer.jsp"/>  
 </body>
 </html>
